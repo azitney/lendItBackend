@@ -11,28 +11,7 @@ const PostSchema = new Schema({
   postedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users'
-  },
-  saved: [{
-    text: String,
-    savedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'users'
-    }
-  }],
-  inquired: [{
-    text: String,
-    inquiredBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'users'
-    }
-  }],
-  confirmed: [{
-    text: String,
-    confirmedFor: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'users'
-    }
-  }]
+  }
 });
 
 mongoose.model('posts', PostSchema);

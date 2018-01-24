@@ -1,6 +1,6 @@
-
 const UsersController = require('../controllers/users_controller');
 const PostsController = require('../controllers/posts_controller');
+const InquireController = require('../controllers/inquire_controller');
 const jwt = require('jsonwebtoken');
 
 module.exports = (app) => {
@@ -14,6 +14,18 @@ module.exports = (app) => {
   app.get('/getOne/:email', UsersController.getOne)
 
   app.use(jwtAuth);
+
+  app.post('/addPost', PostsController.addPost);
+
+  app.post('/addInquiry', InquireController.addInquiry);
+
+  app.get('/getInquiriesForUser', InquireController.getInquiriesForUser);
+
+  app.get('/getPostInquiriesForUser', InquireController.getPostInquiriesForUser);
+
+  app.patch('/denyInquiry', InquireController.denyInquiry);
+
+  app.patch('/confirmInquiry', InquireController.confirmInquiry);
 
 
 
