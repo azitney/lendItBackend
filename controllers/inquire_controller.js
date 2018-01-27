@@ -52,5 +52,11 @@ module.exports = {
     })
   },
 
+  confirmedInquiries(req, res, next){
+    Inquire.find({confirmed: true}).then((inquiries) => {
+      res.json(inquiries);
+    })
+  }
+
 
 };

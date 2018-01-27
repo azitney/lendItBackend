@@ -3,10 +3,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 
+
 require('./config/mongoose.js');
 
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 require('./config/routes.js')(app);
+
 
 app.use((err, req, res, next) => {
   res.status(422).send({ error: err.message });

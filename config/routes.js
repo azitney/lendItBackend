@@ -11,9 +11,12 @@ module.exports = (app) => {
 
   app.get('/all', PostsController.getAll);
 
-  app.get('/getOne/:email', UsersController.getOne)
 
   app.use(jwtAuth);
+
+  app.get('/getUser', UsersController.getUser);
+
+  app.patch('/editPost', PostsController.editPost)
 
   app.post('/addPost', PostsController.addPost);
 
@@ -26,6 +29,14 @@ module.exports = (app) => {
   app.patch('/denyInquiry', InquireController.denyInquiry);
 
   app.patch('/confirmInquiry', InquireController.confirmInquiry);
+
+  app.get('/confirmedInquiries', InquireController.confirmedInquiries);
+
+  app.patch('/addSavedItem', UsersController.addSavedItem);
+
+  app.delete('/deletePost/:id', PostsController.deletePost);
+
+  app.patch('/removeDeletedPost/:id', UsersController.removeDeletedPost);
 
 
 

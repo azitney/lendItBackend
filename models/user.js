@@ -9,7 +9,9 @@ const UserSchema = new Schema({
   state: String,
   city: String,
   zip: Number,
-  street: String
+  street: String,
+  saved: [{ type: String }],
+  phone: Number
 })
 
 mongoose.model('users', UserSchema);
