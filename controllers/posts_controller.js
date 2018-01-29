@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Post = mongoose.model('posts');
+const User = mongoose.model('users');
+const Inquire = mongoose.model('inquire');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -43,14 +45,38 @@ editPost(req, res, next){
   },
 
   deletePost(req, res, next){
-    console.log(req.params.id)
     Post.remove({'_id': req.params.id}).then(() => {
-      Post.find().then((posts) => {
-        res.json(posts);
+      User.find().then((users) => {
+        users.map((user) => {
+          if(user.saved.includes(req.params.id)){
+            let newSaved = user.saved
+            if(newSaved.indexOf(req.params.id) === 0){
+              newSaved.pop()
+            }else{
+              newSaved.splice(newSaved.indexOf(req.params.id), 1)
+            }
+            User.findOneAndUpdate({'_id': user._id}, {
+              saved: newSaved
+            }).then(()=>{
+              console.log("done")
+            })
+          }
+      })
+        }).then(() => {
+          Inquire.remove({ 'postId' : req.params.id}).then(()=>{
+            console.log('inquire removed!')
       })
     })
-
-  }
+  }).then(()=>{
+    Post.find().then((posts) => {
+      User.findOne({'_id': req.decoded._id}).then((user) => {
+        Inquire.find({'confirmationId': req.decoded._id}).then((inquiries) => {
+          res.json({'user': user, 'posts': posts, 'byConfirmedById': inquiries})
+        })
+      })
+    })
+  })
+}
 
 
 };

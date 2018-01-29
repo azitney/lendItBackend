@@ -36,7 +36,6 @@ module.exports = (app) => {
 
   app.delete('/deletePost/:id', PostsController.deletePost);
 
-  app.patch('/removeDeletedPost/:id', UsersController.removeDeletedPost);
 
 
 

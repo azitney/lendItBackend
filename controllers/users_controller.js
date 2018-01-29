@@ -47,10 +47,6 @@ module.exports = {
 
 
 
-  removeDeletedPost(req, res, next){
-    User.find().then((users)=> {
-      users.map((user) => console.log(user))
-    })
-  }
+
 
 };

@@ -30,9 +30,9 @@ module.exports = {
     }
     console.log(newInquire)
     Inquire.create(newInquire).then(()=>{
-      //Inquire.find().then((inquiries)=>{
-        console.log('done!')
-      //})
+      Inquire.find({inquiredById: req.decoded._id}).then((inquiries)=>{
+        res.json(inquiries)
+      })
     });
   },
 
