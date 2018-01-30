@@ -44,9 +44,23 @@ module.exports = {
     })
   },
 
-
-
-
-
+  editUser(req, res, next){
+    User.findOneAndUpdate({'_id': req.decoded._id}, {
+      name: req.body.updateUser.name,
+      state: req.body.updateUser.state,
+      city: req.body.updateUser.city,
+      zip: req.body.updateUser.zip,
+      street: req.body.updateUser.street,
+      saved: req.body.updateUser.saved,
+      phone: req.body.updateUser.phone,
+      email: req.body.updateUser.email,
+      password: req.body.updateUser.password
+    }).then(()=>{
+      User.findOne({'_id': req.decoded._id}).then((user) => {
+        console.log(user)
+        res.json(user);
+      })
+    })
+  }
 
 };
